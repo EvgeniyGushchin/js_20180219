@@ -17,6 +17,6 @@
   },
   "homepage": "https://github.com/EvgeniyGushchin/js_20180219#readme",
   "dependencies": {
-    "static": "^2.0.0"
+    "static-server": "^2.2.1"
   }
 }
