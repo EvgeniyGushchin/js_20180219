@@ -1,0 +1,8 @@
+.chat {
+    padding: 10px;
+    max-height: 500px;
+    min-height: 100px;
+    overflow-y: scroll;
+    border-radius: 5px;
+    background-color: lightgray;
+}
