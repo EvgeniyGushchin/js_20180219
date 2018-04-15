@@ -3,9 +3,9 @@
 
     class TextInput {
 
-        constructor(el, message) {
+        constructor(el, placeholder) {
             this.el = el;
-            this.message = message;
+            this.placeholder = placeholder;
 
             this.render();
         }
@@ -16,7 +16,7 @@
                   
                       <form class="textinput">
                          <br>
-                         <textarea class="textinput__textarea">${this.message}</textarea>
+                         <textarea class="textinput__textarea" placeholder="${this.placeholder}"></textarea>
                          <br>
                          <input type = "submit" value = "submit" />
                       </form>
