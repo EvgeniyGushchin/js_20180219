@@ -13,8 +13,16 @@
             `;
         }
 
-        addMessage() {
-
+        /**
+         *
+         * @param message - text of message
+         * @param isOwner - true if message created by user and false if came from network
+         */
+        addMessage(message, isOwner) {
+            let node = document.createElement('div');
+            let bubble = new MessageBubble(node, message, isOwner);
+            bubble.render();
+            this.el.querySelector('.chat').appendChild(node);
         }
 
     }
