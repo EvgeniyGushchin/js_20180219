@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/EvgeniyGushchin/js_20180219.git"
+    "url": "git+https://github.com/burlakilia/js_20180219.git"
   },
-  "author": "egushchin",
+  "author": "Burlak Ilia",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/EvgeniyGushchin/js_20180219/issues"
+    "url": "https://github.com/burlakilia/js_20180219/issues"
   },
-  "homepage": "https://github.com/EvgeniyGushchin/js_20180219#readme",
+  "homepage": "https://github.com/burlakilia/js_20180219#readme",
   "dependencies": {
     "static-server": "^2.2.1"
   }

@@ -21,11 +21,12 @@
         render() {
 
             this.el.innerHTML = `
-                <form class="auth">
-                    <input class="auth__name" name="login"/>Login
-                    <button class="auth__submit">Login</button>
-                </form>
-        `;
+                            <form class="auth pure-form">
+                                    <input class="auth__name" type="text" placeholder="Login">
+                                    <input class="auth__pass" type="password" placeholder="Password">
+                            
+                                    <button type="submit" class=" auth__submit pure-button pure-button-primary">Sign in</button>
+                            </form> `;
 
         }
 
@@ -33,3 +34,4 @@
 
     window.Auth = Auth;
 })();
+

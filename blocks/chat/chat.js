@@ -1,5 +1,6 @@
 (function () {
     'use strict';
+
     class Chat {
 
         constructor(el) {
@@ -9,8 +10,11 @@
 
         render() {
             this.el.innerHTML = `
-            <div class = chat></div>
-            `;
+                <div class="chat">
+                    <span class="chat_title"></span>
+                    <span class="chat_name"></span>
+                    <span class="chat_message"></span>
+                </div>`;
         }
 
         /**
