@@ -3,8 +3,9 @@
 
     class MessageBubble {
 
-        constructor(el, message, isOwners = false) {
-            this.el = el;
+        constructor(message, isOwners = false) {
+
+            this.el = document.createElement('div');
             this.message = message;
             this.isOwners = isOwners;
 
@@ -16,7 +17,8 @@
             this.el.innerHTML = `
                 <div class="message__bubble">
                     <div class="${arrowClass}"></div>
-                    ${this.message}
+                    <span class="mesage__title">title</span></br>
+                    <span>${this.message}</span>
                 </div>
         `;
 

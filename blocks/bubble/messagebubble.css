@@ -5,7 +5,8 @@
     width: 350px;
     text-align: center;
     padding: 20px;
-    position: absolute;
+    position: relative;
+    margin: 10px 10px;
 }
 
 .message__arrow--right {

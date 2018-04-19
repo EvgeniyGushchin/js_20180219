@@ -24,9 +24,9 @@
          */
         addMessage(message, isOwner) {
             let node = document.createElement('div');
-            let bubble = new MessageBubble(node, message, isOwner);
+            let bubble = new MessageBubble(message, isOwner);
             bubble.render();
-            this.el.querySelector('.chat').appendChild(node);
+            this.el.querySelector('.chat').appendChild(bubble.el);
         }
 
     }

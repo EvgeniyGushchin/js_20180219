@@ -2,7 +2,7 @@
     width: 300px;
     margin: auto;
     bakground-color: #19ff19;
-    color: #fff;
+    color: #121212;
     font-size: 14px;
 }
 
@@ -10,5 +10,5 @@
     font-size: 16px;
 }
 .chat_message{
-    color: #4d4;
+    color: #c80810;
 }
