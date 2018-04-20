@@ -1,37 +1,46 @@
-(function () {
-    'use strict';
+import template from './auth.pug';
 
-    class Auth {
+export class Auth {
 
-        constructor(el, data) {
-            this.el = el;
-            this.data = data;
+    constructor(el, data) {
+        this.el = el;
+        this.data = data;
 
-            this.render();
+        this.render();
 
-            let form = this.el.querySelector('form');
+        let form = this.el.querySelector('.auth');
 
-            form.addEventListener('submit', event => {
-                event.preventDefault();
-                console.log('login');
-            });
+        form.addEventListener('submit', event => {
+            event.preventDefault();
 
-        }
+            const name = this.el.querySelector('.auth__name').value.slice();
+            const password = this.el.querySelector('.auth__password').value.slice();
 
-        render() {
+            const authenticated = name && password;
 
-            this.el.innerHTML = `
-                            <form class="auth pure-form">
-                                    <input class="auth__name" type="text" placeholder="Login">
-                                    <input class="auth__pass" type="password" placeholder="Password">
-                            
-                                    <button type="submit" class=" auth__submit pure-button pure-button-primary">Sign in</button>
-                            </form> `;
+            if (authenticated) {
+                console.log(`Hi, ${name}`);
+                localStorage.setItem('authenticated', true);
 
-        }
+                // тапорненько перерисовываем.
+                window.chat.render();
+                window.message.render();
+                this.render();
+
+                // запишем в виндоу юзера тоже думаю временно
+                localStorage.setItem('user', name);
+            }
+            else {
+                console.log('Authorization failed');
+            }
+        });
 
     }
 
-    window.Auth = Auth;
-})();
+    render() {
+        this.el.innerHTML = template();
+    }
 
+}
+
+export const defaultLogin = 'user';

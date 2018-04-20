@@ -1,31 +1,43 @@
-(function () {
-    'use strict';
+import template from './message.pug';
 
-    class Message {
+export class Message {
 
-        constructor(el, data) {
-            this.el = el;
-            this.data = data;
-            this.render();
+    constructor(el, data) {
+        this.el = el;
+        this.data = data;
+        this.render();
 
-        }
+     }
 
-        render() {
+    render() {
+        this.el.innerHTML = template();
 
-            this.el.innerHTML = `
-                <form class="message pure-form">
-                    <fieldset class="pure-group">
-                        <input type="text" class="message__title pure-input-1-2" placeholder="Title">
-                        <textarea class="message__input pure-input-1-2" placeholder="Add your message here..."></textarea>
-                    </fieldset>
-                    <button type="submit" class="button__message button-success pure-button">Publish</button>
-                </form>
-        `;
+        let form = this.el.querySelector('.message');
 
-        }
+        form.addEventListener('submit', event => {
+            event.preventDefault();
+            this.sendMessage();
+            console.log('send');
+        });
 
+        form.addEventListener('keydown', event => {
+            if (event.ctrlKey && event.keyCode === 13) {
+                event.preventDefault();
+                this.sendMessage();
+                console.log('send');
+            }
+            else if (!event.ctrlKey && event.keyCode === 13) {
+                event.preventDefault();
+            }
+        });
     }
 
-    window.Message = Message;
-})();
+    sendMessage() {
+        const input = this.el.querySelector('.message__input');
+        window.chat.insertMessage(input.value);
+        input.value = '';
+    }
+
+}
+
 

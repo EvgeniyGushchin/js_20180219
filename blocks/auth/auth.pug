@@ -1,0 +1,14 @@
+- const authenticated = localStorage.getItem('authenticated');
+
+form.auth.pure-form(class=authenticated ? 'auth__auth-hide' : '')
+    input.auth__name(
+        type="text"
+        placeholder="Login"
+        )
+    input.auth__password(
+        type="password"
+        placeholder="Password"
+        )
+    button.auth__submit.pure-button.pure-button-primary(
+        type="submit"
+        ) Sign in

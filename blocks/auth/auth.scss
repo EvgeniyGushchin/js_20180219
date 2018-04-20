@@ -1,0 +1,21 @@
+.auth {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &__name {
+        margin-top: 10px;
+    }
+
+    &__password {
+        margin-top: 10px;
+    }
+
+    &__submit {
+        margin-top: 10px;
+    }
+
+    &__auth-hide {
+        display: none;
+    }
+}

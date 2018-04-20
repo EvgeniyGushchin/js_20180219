@@ -1,0 +1,21 @@
+@import "blocks/chat/chat.scss";
+@import "blocks/auth/auth.scss";
+@import "blocks/message/message.scss";
+
+body{
+    padding-left: 20px;
+    padding-right: 20px;
+    margin: auto;
+    background-image: url('./img/2.jpg.jpg');
+    background-size: cover;
+}
+
+h1{
+    color: #00008b;
+    text-align: center;
+}
+
+.chat-container {
+    display: flex;
+    flex-direction: column;
+}
