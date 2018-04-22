@@ -12,11 +12,6 @@ export class Chat {
         this.el.innerHTML = `
             <div class="chat"></div>`;
     }
-    // render(text = '') {
-    //     this.el.innerHTML += template({
-    //         text
-    //     });
-    // }
 
     /**
      *
@@ -25,7 +20,7 @@ export class Chat {
      */
     addMessage(message, isOwner) {
         let node = document.createElement('div');
-        let bubble = new MessageBubble(message, isOwner);
+        let bubble = new MessageBubble(node,message, isOwner);
         bubble.render();
         this.el.querySelector('.chat').appendChild(bubble.el);
     }

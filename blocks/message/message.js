@@ -34,7 +34,7 @@ export class Message {
 
     sendMessage() {
         const input = this.el.querySelector('.message__input');
-        window.chat.insertMessage(input.value);
+        window.chat.addMessage(input.value, true);
         input.value = '';
     }
 

@@ -1,8 +1,9 @@
 export class MessageBubble {
 
-    constructor(message, isOwners = false) {
+    constructor(el, message, isOwners = false) {
 
         this.el = document.createElement('div');
+
         this.message = message;
         this.isOwners = isOwners;
 
@@ -10,11 +11,11 @@ export class MessageBubble {
     }
 
     render() {
-        let arrowClass = this.isOwners ? "message__arrow--left" : "message__arrow--right";
+        let arrowClass = this.isOwners ? "messagebubble__arrow--left" : "messagebubble__arrow--right";
         this.el.innerHTML = `
-                <div class="message__bubble">
+                <div class="messagebubble">
                     <div class="${arrowClass}"></div>
-                    <span class="mesage__title">title</span></br>
+                    <span class="messagebubble__title">title</span></br>
                     <span>${this.message}</span>
                 </div>
         `;

@@ -435,11 +435,6 @@ var Chat = exports.Chat = function () {
         value: function render() {
             this.el.innerHTML = '\n            <div class="chat"></div>';
         }
-        // render(text = '') {
-        //     this.el.innerHTML += template({
-        //         text
-        //     });
-        // }
 
         /**
          *
@@ -451,7 +446,7 @@ var Chat = exports.Chat = function () {
         key: 'addMessage',
         value: function addMessage(message, isOwner) {
             var node = document.createElement('div');
-            var bubble = new _messagebubble.MessageBubble(message, isOwner);
+            var bubble = new _messagebubble.MessageBubble(node, message, isOwner);
             bubble.render();
             this.el.querySelector('.chat').appendChild(bubble.el);
         }
@@ -520,7 +515,7 @@ var Message = exports.Message = function () {
         key: 'sendMessage',
         value: function sendMessage() {
             var input = this.el.querySelector('.message__input');
-            window.chat.insertMessage(input.value);
+            window.chat.addMessage(input.value, true);
             input.value = '';
         }
     }]);
@@ -580,12 +575,13 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var MessageBubble = exports.MessageBubble = function () {
-    function MessageBubble(message) {
-        var isOwners = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+    function MessageBubble(el, message) {
+        var isOwners = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
 
         _classCallCheck(this, MessageBubble);
 
         this.el = document.createElement('div');
+
         this.message = message;
         this.isOwners = isOwners;
 
@@ -595,8 +591,8 @@ var MessageBubble = exports.MessageBubble = function () {
     _createClass(MessageBubble, [{
         key: "render",
         value: function render() {
-            var arrowClass = this.isOwners ? "message__arrow--left" : "message__arrow--right";
-            this.el.innerHTML = "\n                <div class=\"message__bubble\">\n                    <div class=\"" + arrowClass + "\"></div>\n                    <span class=\"mesage__title\">title</span></br>\n                    <span>" + this.message + "</span>\n                </div>\n        ";
+            var arrowClass = this.isOwners ? "messagebubble__arrow--left" : "messagebubble__arrow--right";
+            this.el.innerHTML = "\n                <div class=\"messagebubble\">\n                    <div class=\"" + arrowClass + "\"></div>\n                    <span class=\"messagebubble__title\">title</span></br>\n                    <span>" + this.message + "</span>\n                </div>\n        ";
         }
     }]);
 
@@ -669,10 +665,7 @@ module.exports = template;
 
 var pug = __webpack_require__(0);
 
-function template(locals) {var pug_html = "", pug_mixins = {}, pug_interp;;var locals_for_with = (locals || {});(function (authenticated, text, user) {pug_html = pug_html + "\u003Cconst\u003Eauthenticated = localStorage.getItem('authenticated');\u003C\u002Fconst\u003E\u003Cconst\u003Euser = localStorage.getItem('user');\u003C\u002Fconst\u003E";
-if (text) {
-pug_html = pug_html + "\u003Cdiv" + (pug.attr("class", pug.classes(["chat","pure-u-1-2",!authenticated ? 'chat__chat-hide' : ''], [false,false,true]), false, true)) + "\u003E\u003Cspan class=\"chat__name\"\u003E" + (pug.escape(null == (pug_interp = `${user}:`) ? "" : pug_interp)) + "\u003C\u002Fspan\u003E\u003Cspan class=\"chat__message\"\u003E" + (pug.escape(null == (pug_interp = text) ? "" : pug_interp)) + "\u003C\u002Fspan\u003E\u003C\u002Fdiv\u003E";
-}}.call(this,"authenticated" in locals_for_with?locals_for_with.authenticated:typeof authenticated!=="undefined"?authenticated:undefined,"text" in locals_for_with?locals_for_with.text:typeof text!=="undefined"?text:undefined,"user" in locals_for_with?locals_for_with.user:typeof user!=="undefined"?user:undefined));;return pug_html;};
+function template(locals) {var pug_html = "", pug_mixins = {}, pug_interp;;var locals_for_with = (locals || {});(function (authenticated, text, user) {pug_html = pug_html + "\u003Cconst\u003Eauthenticated = localStorage.getItem('authenticated');\u003C\u002Fconst\u003E\u003Cconst\u003Euser = localStorage.getItem('user');\u003C\u002Fconst\u003E\u003C!--if text--\u003E\u003Cdiv" + (pug.attr("class", pug.classes(["chat","pure-u-1-2",!authenticated ? 'chat__chat-hide' : ''], [false,false,true]), false, true)) + "\u003E\u003Cspan class=\"chat__name\"\u003E" + (pug.escape(null == (pug_interp = `${user}:`) ? "" : pug_interp)) + "\u003C\u002Fspan\u003E\u003Cspan class=\"chat__message\"\u003E" + (pug.escape(null == (pug_interp = text) ? "" : pug_interp)) + "\u003C\u002Fspan\u003E\u003C\u002Fdiv\u003E";}.call(this,"authenticated" in locals_for_with?locals_for_with.authenticated:typeof authenticated!=="undefined"?authenticated:undefined,"text" in locals_for_with?locals_for_with.text:typeof text!=="undefined"?text:undefined,"user" in locals_for_with?locals_for_with.user:typeof user!=="undefined"?user:undefined));;return pug_html;};
 module.exports = template;
 
 /***/ }),
