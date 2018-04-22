@@ -19,8 +19,13 @@ export class Chat {
      * @param isOwner - true if message created by user and false if came from network
      */
     addMessage(message, isOwner) {
-        let node = document.createElement('div');
-        let bubble = new MessageBubble(node,message, isOwner);
+        let messageInfo = {
+            message: message,
+            userName: 'Ivan Ivanov',
+            isOwner: isOwner,
+            messageDate: Date.now()
+        };
+        let bubble = new MessageBubble(messageInfo);
         bubble.render();
         this.el.querySelector('.chat').appendChild(bubble.el);
     }

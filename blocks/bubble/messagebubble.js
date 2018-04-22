@@ -2,12 +2,13 @@ import template from './messagebubble.pug';
 
 export class MessageBubble {
 
-    constructor(el, message, isOwner = false) {
+    constructor(messageInfo) {
 
         this.el = document.createElement('div');
 
-        this.message = message;
-        this.isOwner = isOwner;
+        this.message = messageInfo.message;
+        this.isOwner = messageInfo.isOwner;
+        this.title = this.titleFromInfo(messageInfo);
 
         this.render();
     }
@@ -17,9 +18,25 @@ export class MessageBubble {
 
         this.el.innerHTML = template({
             arrowclass: arrowClass,
-            title: "title",
+            title: this.title,
             message: this.message
         });
+    }
+
+    titleFromInfo(info) {
+
+        if (info.messageDate === undefined) {
+            return info.userName;
+        }
+        
+        let options = {
+            hour: '2-digit',
+            minute: '2-digit'
+        };
+
+        let time = new Date(info.messageDate).toLocaleString('ru-ru', options);
+
+        return `${info.userName} at ${time}`;
     }
 
 }

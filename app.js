@@ -445,8 +445,13 @@ var Chat = exports.Chat = function () {
     }, {
         key: 'addMessage',
         value: function addMessage(message, isOwner) {
-            var node = document.createElement('div');
-            var bubble = new _messagebubble.MessageBubble(node, message, isOwner);
+            var messageInfo = {
+                message: message,
+                userName: 'Ivan Ivanov',
+                isOwner: isOwner,
+                messageDate: Date.now()
+            };
+            var bubble = new _messagebubble.MessageBubble(messageInfo);
             bubble.render();
             this.el.querySelector('.chat').appendChild(bubble.el);
         }
@@ -582,15 +587,14 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var MessageBubble = exports.MessageBubble = function () {
-    function MessageBubble(el, message) {
-        var isOwner = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
-
+    function MessageBubble(messageInfo) {
         _classCallCheck(this, MessageBubble);
 
         this.el = document.createElement('div');
 
-        this.message = message;
-        this.isOwner = isOwner;
+        this.message = messageInfo.message;
+        this.isOwner = messageInfo.isOwner;
+        this.title = this.titleFromInfo(messageInfo);
 
         this.render();
     }
@@ -602,9 +606,26 @@ var MessageBubble = exports.MessageBubble = function () {
 
             this.el.innerHTML = (0, _messagebubble2.default)({
                 arrowclass: arrowClass,
-                title: "title",
+                title: this.title,
                 message: this.message
             });
+        }
+    }, {
+        key: 'titleFromInfo',
+        value: function titleFromInfo(info) {
+
+            if (info.messageDate === undefined) {
+                return info.userName;
+            }
+
+            var options = {
+                hour: '2-digit',
+                minute: '2-digit'
+            };
+
+            var time = new Date(info.messageDate).toLocaleString('ru-ru', options);
+
+            return info.userName + ' at ' + time;
         }
     }]);
 
