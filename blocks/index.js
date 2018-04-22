@@ -10,7 +10,7 @@ window.addEventListener('DOMContentLoaded', () => {
     let message = new Message(document.querySelector('.js-message'), {});
 
     window.chat = chat;
-    // window.message = message;
+    window.message = message;
     window.auth = auth;
 
     request('get', '/data/data.json')

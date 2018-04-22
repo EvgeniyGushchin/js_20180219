@@ -633,7 +633,7 @@ window.addEventListener('DOMContentLoaded', function () {
     var message = new _message.Message(document.querySelector('.js-message'), {});
 
     window.chat = chat;
-    // window.message = message;
+    window.message = message;
     window.auth = auth;
 
     (0, _utils.request)('get', '/data/data.json').then(function (data) {
