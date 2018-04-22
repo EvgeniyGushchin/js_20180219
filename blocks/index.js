@@ -13,30 +13,21 @@ window.addEventListener('DOMContentLoaded', () => {
     // window.message = message;
     window.auth = auth;
 
-    let list;
-
     request('get', '/data/data.json')
         .then(
             data => {
-                let promise = Promise.all(getAll(data));
-                promise.then(
-                    result => {
-                        for (let i = 0; i < result.length ; i++) {
-                            console.log(result[i]);
-                        }
-                    }
-                );
+                return Promise.all(getAllUsersFromList(data));
             },
             err => console.log(err)
         )
-        .then();
+        .then(
+            result => result.map(user => console.log(user))
+        );
 
-    function getAll(data) {
-        let promises = [];
-        for (let i = 0; i < data.length; i++) {
-            promises.push(request('get', `/data/${data[i].user}.json`));
-        }
-        return promises;
+    function getAllUsersFromList(list) {
+        return list.map(user => {
+            return request('get', `/data/${user.user}.json`);
+        });
     }
     // consooe.log(ilia, elina); // оба были выведены
 });

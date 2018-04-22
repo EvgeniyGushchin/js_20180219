@@ -628,25 +628,20 @@ window.addEventListener('DOMContentLoaded', function () {
     // window.message = message;
     window.auth = auth;
 
-    var list = void 0;
-
     (0, _utils.request)('get', '/data/data.json').then(function (data) {
-        var promise = Promise.all(getAll(data));
-        promise.then(function (result) {
-            for (var i = 0; i < result.length; i++) {
-                console.log(result[i]);
-            }
-        });
+        return Promise.all(getAllUsersFromList(data));
     }, function (err) {
         return console.log(err);
-    }).then();
+    }).then(function (result) {
+        return result.map(function (user) {
+            return console.log(user);
+        });
+    });
 
-    function getAll(data) {
-        var promises = [];
-        for (var i = 0; i < data.length; i++) {
-            promises.push((0, _utils.request)('get', '/data/' + data[i].user + '.json'));
-        }
-        return promises;
+    function getAllUsersFromList(list) {
+        return list.map(function (user) {
+            return (0, _utils.request)('get', '/data/' + user.user + '.json');
+        });
     }
     // consooe.log(ilia, elina); // оба были выведены
 });
