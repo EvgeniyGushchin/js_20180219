@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 5);
+/******/ 	return __webpack_require__(__webpack_require__.s = 6);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -300,7 +300,7 @@ function pug_rethrow(err, filename, lineno, str){
     throw err;
   }
   try {
-    str = str || __webpack_require__(9).readFileSync(filename, 'utf8')
+    str = str || __webpack_require__(10).readFileSync(filename, 'utf8')
   } catch (ex) {
     pug_rethrow(err, null, lineno)
   }
@@ -340,7 +340,7 @@ exports.defaultLogin = exports.Auth = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _auth = __webpack_require__(6);
+var _auth = __webpack_require__(7);
 
 var _auth2 = _interopRequireDefault(_auth);
 
@@ -412,9 +412,9 @@ exports.Chat = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _messagebubble = __webpack_require__(4);
+var _messagebubble = __webpack_require__(5);
 
-var _chat = __webpack_require__(7);
+var _chat = __webpack_require__(8);
 
 var _chat2 = _interopRequireDefault(_chat);
 
@@ -474,7 +474,7 @@ exports.Message = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _message = __webpack_require__(8);
+var _message = __webpack_require__(9);
 
 var _message2 = _interopRequireDefault(_message);
 
@@ -535,128 +535,6 @@ var Message = exports.Message = function () {
 "use strict";
 
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-(function () {
-    'use strict';
-
-    var MessageBubble = function () {
-        function MessageBubble(message) {
-            var isOwners = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
-
-            _classCallCheck(this, MessageBubble);
-
-            this.el = document.createElement('div');
-            this.message = message;
-            this.isOwners = isOwners;
-
-            this.render();
-        }
-
-        _createClass(MessageBubble, [{
-            key: 'render',
-            value: function render() {
-                var arrowClass = this.isOwners ? "message__arrow--left" : "message__arrow--right";
-                this.el.innerHTML = '\n                <div class="message__bubble">\n                    <div class="' + arrowClass + '"></div>\n                    <span class="mesage__title">title</span></br>\n                    <span>' + this.message + '</span>\n                </div>\n        ';
-            }
-        }]);
-
-        return MessageBubble;
-    }();
-
-    window.MessageBubble = MessageBubble;
-})();
-
-/***/ }),
-/* 5 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _auth = __webpack_require__(1);
-
-var _chat = __webpack_require__(2);
-
-var _message = __webpack_require__(3);
-
-var _utils = __webpack_require__(9);
-
-window.addEventListener('DOMContentLoaded', function () {
-    console.log(_auth.Auth);
-
-    var auth = new _auth.Auth(document.querySelector('.js-auth'), {});
-    var chat = new _chat.Chat(document.querySelector('.js-chat'), {});
-    var message = new _message.Message(document.querySelector('.js-message'), {});
-
-    window.chat = chat;
-    window.message = message;
-    window.auth = auth;
-
-    console.log(1 + 1 + ' test');
-
-    var list = void 0;
-
-    (0, _utils.request)('get', '/data/data.json').then(function (data) {
-        return (0, _utils.request)('get', '/data/' + data[0].user + '.json');
-    }, function (err) {
-        return console.log(err);
-    });
-
-    // consooe.log(ilia, elina); // оба были выведены
-});
-
-//
-//       index
-//   /     \       \
-//  Auth    Chat   Message
-//           \
-//           Message
-
-/***/ }),
-/* 6 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var pug = __webpack_require__(0);
-
-function template(locals) {var pug_html = "", pug_mixins = {}, pug_interp;;var locals_for_with = (locals || {});(function (localStorage) {const authenticated = localStorage.getItem('authenticated');
-pug_html = pug_html + "\u003Cform" + (pug.attr("class", pug.classes(["auth","pure-form",authenticated ? 'auth__auth-hide' : ''], [false,false,true]), false, true)) + "\u003E\u003Cinput class=\"auth__name\" type=\"text\" placeholder=\"Login\"\u003E\u003Cinput class=\"auth__password\" type=\"password\" placeholder=\"Password\"\u003E\u003Cbutton class=\"auth__submit pure-button pure-button-primary\" type=\"submit\"\u003ESign in\u003C\u002Fbutton\u003E\u003C\u002Fform\u003E";}.call(this,"localStorage" in locals_for_with?locals_for_with.localStorage:typeof localStorage!=="undefined"?localStorage:undefined));;return pug_html;};
-module.exports = template;
-
-/***/ }),
-/* 7 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var pug = __webpack_require__(0);
-
-function template(locals) {var pug_html = "", pug_mixins = {}, pug_interp;;var locals_for_with = (locals || {});(function (text, user) {pug_html = pug_html + "\u003Cchat\u003E\u003Cspan class=\"chat__name\"\u003E" + (pug.escape(null == (pug_interp = `${user}:`) ? "" : pug_interp)) + "\u003C\u002Fspan\u003E\u003Cspan class=\"chat__message\"\u003E" + (pug.escape(null == (pug_interp = text) ? "" : pug_interp)) + "\u003C\u002Fspan\u003E\u003C\u002Fchat\u003E";}.call(this,"text" in locals_for_with?locals_for_with.text:typeof text!=="undefined"?text:undefined,"user" in locals_for_with?locals_for_with.user:typeof user!=="undefined"?user:undefined));;return pug_html;};
-module.exports = template;
-
-/***/ }),
-/* 8 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var pug = __webpack_require__(0);
-
-function template(locals) {var pug_html = "", pug_mixins = {}, pug_interp;;var locals_for_with = (locals || {});(function (localStorage) {const authenticated = localStorage.getItem('authenticated');
-pug_html = pug_html + "\u003Cform" + (pug.attr("class", pug.classes(["message","pure-form",!authenticated ? 'message__message-hide' : ''], [false,false,true]), false, true)) + "\u003E\u003Ctextarea class=\"message__input pure-input-1-2\" placeholder=\"Add your message here...\"\u003E\u003C\u002Ftextarea\u003E\u003Cbutton class=\"message__button button-success pure-button\"\u003ESend\u003C\u002Fbutton\u003E\u003C\u002Fform\u003E";}.call(this,"localStorage" in locals_for_with?locals_for_with.localStorage:typeof localStorage!=="undefined"?localStorage:undefined));;return pug_html;};
-module.exports = template;
-
-/***/ }),
-/* 9 */
-/***/ (function(module, exports) {
-
-/* (ignored) */
-
-/***/ }),
-/* 9 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
@@ -685,6 +563,138 @@ function request(method, path, done) {
 }
 
 // request('GET', '/data.json', (data) => { console.log(data) })
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var MessageBubble = exports.MessageBubble = function () {
+    function MessageBubble(message) {
+        var isOwners = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+
+        _classCallCheck(this, MessageBubble);
+
+        this.el = document.createElement('div');
+        this.message = message;
+        this.isOwners = isOwners;
+
+        this.render();
+    }
+
+    _createClass(MessageBubble, [{
+        key: "render",
+        value: function render() {
+            var arrowClass = this.isOwners ? "message__arrow--left" : "message__arrow--right";
+            this.el.innerHTML = "\n                <div class=\"message__bubble\">\n                    <div class=\"" + arrowClass + "\"></div>\n                    <span class=\"mesage__title\">title</span></br>\n                    <span>" + this.message + "</span>\n                </div>\n        ";
+        }
+    }]);
+
+    return MessageBubble;
+}();
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _auth = __webpack_require__(1);
+
+var _chat = __webpack_require__(2);
+
+var _message = __webpack_require__(3);
+
+var _utils = __webpack_require__(4);
+
+window.addEventListener('DOMContentLoaded', function () {
+
+    var auth = new _auth.Auth(document.querySelector('.js-auth'), {});
+    var chat = new _chat.Chat(document.querySelector('.js-chat'), {});
+    var message = new _message.Message(document.querySelector('.js-message'), {});
+
+    window.chat = chat;
+    // window.message = message;
+    window.auth = auth;
+
+    var list = void 0;
+
+    (0, _utils.request)('get', '/data/data.json').then(function (data) {
+        var promise = Promise.all(getAll(data));
+        promise.then(function (result) {
+            for (var i = 0; i < result.length; i++) {
+                console.log(result[i]);
+            }
+        });
+    }, function (err) {
+        return console.log(err);
+    }).then();
+
+    function getAll(data) {
+        var promises = [];
+        for (var i = 0; i < data.length; i++) {
+            promises.push((0, _utils.request)('get', '/data/' + data[i].user + '.json'));
+        }
+        return promises;
+    }
+    // consooe.log(ilia, elina); // оба были выведены
+});
+
+//
+//       index
+//   /     \       \
+//  Auth    Chat   Message
+//           \
+//           Message
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var pug = __webpack_require__(0);
+
+function template(locals) {var pug_html = "", pug_mixins = {}, pug_interp;;var locals_for_with = (locals || {});(function (localStorage) {const authenticated = localStorage.getItem('authenticated');
+pug_html = pug_html + "\u003Cform" + (pug.attr("class", pug.classes(["auth","pure-form",authenticated ? 'auth__auth-hide' : ''], [false,false,true]), false, true)) + "\u003E\u003Cinput class=\"auth__name\" type=\"text\" placeholder=\"Login\"\u003E\u003Cinput class=\"auth__password\" type=\"password\" placeholder=\"Password\"\u003E\u003Cbutton class=\"auth__submit pure-button pure-button-primary\" type=\"submit\"\u003ESign in\u003C\u002Fbutton\u003E\u003C\u002Fform\u003E";}.call(this,"localStorage" in locals_for_with?locals_for_with.localStorage:typeof localStorage!=="undefined"?localStorage:undefined));;return pug_html;};
+module.exports = template;
+
+/***/ }),
+/* 8 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var pug = __webpack_require__(0);
+
+function template(locals) {var pug_html = "", pug_mixins = {}, pug_interp;;var locals_for_with = (locals || {});(function (authenticated, text, user) {pug_html = pug_html + "\u003Cconst\u003Eauthenticated = localStorage.getItem('authenticated');\u003C\u002Fconst\u003E\u003Cconst\u003Euser = localStorage.getItem('user');\u003C\u002Fconst\u003E";
+if (text) {
+pug_html = pug_html + "\u003Cdiv" + (pug.attr("class", pug.classes(["chat","pure-u-1-2",!authenticated ? 'chat__chat-hide' : ''], [false,false,true]), false, true)) + "\u003E\u003Cspan class=\"chat__name\"\u003E" + (pug.escape(null == (pug_interp = `${user}:`) ? "" : pug_interp)) + "\u003C\u002Fspan\u003E\u003Cspan class=\"chat__message\"\u003E" + (pug.escape(null == (pug_interp = text) ? "" : pug_interp)) + "\u003C\u002Fspan\u003E\u003C\u002Fdiv\u003E";
+}}.call(this,"authenticated" in locals_for_with?locals_for_with.authenticated:typeof authenticated!=="undefined"?authenticated:undefined,"text" in locals_for_with?locals_for_with.text:typeof text!=="undefined"?text:undefined,"user" in locals_for_with?locals_for_with.user:typeof user!=="undefined"?user:undefined));;return pug_html;};
+module.exports = template;
+
+/***/ }),
+/* 9 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var pug = __webpack_require__(0);
+
+function template(locals) {var pug_html = "", pug_mixins = {}, pug_interp;;var locals_for_with = (locals || {});(function (localStorage) {const authenticated = localStorage.getItem('authenticated');
+pug_html = pug_html + "\u003Cform" + (pug.attr("class", pug.classes(["message","pure-form",!authenticated ? 'message__message-hide' : ''], [false,false,true]), false, true)) + "\u003E\u003Ctextarea class=\"message__input pure-input-1-2\" placeholder=\"Add your message here...\"\u003E\u003C\u002Ftextarea\u003E\u003Cbutton class=\"message__button button-success pure-button\"\u003ESend\u003C\u002Fbutton\u003E\u003C\u002Fform\u003E";}.call(this,"localStorage" in locals_for_with?locals_for_with.localStorage:typeof localStorage!=="undefined"?localStorage:undefined));;return pug_html;};
+module.exports = template;
+
+/***/ }),
+/* 10 */
+/***/ (function(module, exports) {
+
+/* (ignored) */
 
 /***/ })
 /******/ ]);

@@ -1,20 +1,17 @@
-(function () {
-    'use strict';
+export class MessageBubble {
 
-    class MessageBubble {
+    constructor(message, isOwners = false) {
 
-        constructor(message, isOwners = false) {
+        this.el = document.createElement('div');
+        this.message = message;
+        this.isOwners = isOwners;
 
-            this.el = document.createElement('div');
-            this.message = message;
-            this.isOwners = isOwners;
+        this.render();
+    }
 
-            this.render();
-        }
-
-        render() {
-            let arrowClass = this.isOwners ? "message__arrow--left" : "message__arrow--right";
-            this.el.innerHTML = `
+    render() {
+        let arrowClass = this.isOwners ? "message__arrow--left" : "message__arrow--right";
+        this.el.innerHTML = `
                 <div class="message__bubble">
                     <div class="${arrowClass}"></div>
                     <span class="mesage__title">title</span></br>
@@ -22,9 +19,6 @@
                 </div>
         `;
 
-        }
-
     }
 
-    window.MessageBubble = MessageBubble;
-})();
+}
