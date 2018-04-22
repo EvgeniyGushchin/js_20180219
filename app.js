@@ -300,7 +300,7 @@ function pug_rethrow(err, filename, lineno, str){
     throw err;
   }
   try {
-    str = str || __webpack_require__(10).readFileSync(filename, 'utf8')
+    str = str || __webpack_require__(11).readFileSync(filename, 'utf8')
   } catch (ex) {
     pug_rethrow(err, null, lineno)
   }
@@ -414,7 +414,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _messagebubble = __webpack_require__(5);
 
-var _chat = __webpack_require__(8);
+var _chat = __webpack_require__(9);
 
 var _chat2 = _interopRequireDefault(_chat);
 
@@ -469,7 +469,7 @@ exports.Message = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _message = __webpack_require__(9);
+var _message = __webpack_require__(10);
 
 var _message2 = _interopRequireDefault(_message);
 
@@ -569,30 +569,42 @@ function request(method, path, done) {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+exports.MessageBubble = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _messagebubble = __webpack_require__(8);
+
+var _messagebubble2 = _interopRequireDefault(_messagebubble);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var MessageBubble = exports.MessageBubble = function () {
     function MessageBubble(el, message) {
-        var isOwners = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+        var isOwner = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
 
         _classCallCheck(this, MessageBubble);
 
         this.el = document.createElement('div');
 
         this.message = message;
-        this.isOwners = isOwners;
+        this.isOwner = isOwner;
 
         this.render();
     }
 
     _createClass(MessageBubble, [{
-        key: "render",
+        key: 'render',
         value: function render() {
-            var arrowClass = this.isOwners ? "messagebubble__arrow--left" : "messagebubble__arrow--right";
-            this.el.innerHTML = "\n                <div class=\"messagebubble\">\n                    <div class=\"" + arrowClass + "\"></div>\n                    <span class=\"messagebubble__title\">title</span></br>\n                    <span>" + this.message + "</span>\n                </div>\n        ";
+            var arrowClass = this.isOwner ? "messagebubble__arrow--left" : "messagebubble__arrow--right";
+
+            this.el.innerHTML = (0, _messagebubble2.default)({
+                arrowclass: arrowClass,
+                title: "title",
+                message: this.message
+            });
         }
     }]);
 
@@ -665,11 +677,20 @@ module.exports = template;
 
 var pug = __webpack_require__(0);
 
-function template(locals) {var pug_html = "", pug_mixins = {}, pug_interp;;var locals_for_with = (locals || {});(function (authenticated, text, user) {pug_html = pug_html + "\u003Cconst\u003Eauthenticated = localStorage.getItem('authenticated');\u003C\u002Fconst\u003E\u003Cconst\u003Euser = localStorage.getItem('user');\u003C\u002Fconst\u003E\u003C!--if text--\u003E\u003Cdiv" + (pug.attr("class", pug.classes(["chat","pure-u-1-2",!authenticated ? 'chat__chat-hide' : ''], [false,false,true]), false, true)) + "\u003E\u003Cspan class=\"chat__name\"\u003E" + (pug.escape(null == (pug_interp = `${user}:`) ? "" : pug_interp)) + "\u003C\u002Fspan\u003E\u003Cspan class=\"chat__message\"\u003E" + (pug.escape(null == (pug_interp = text) ? "" : pug_interp)) + "\u003C\u002Fspan\u003E\u003C\u002Fdiv\u003E";}.call(this,"authenticated" in locals_for_with?locals_for_with.authenticated:typeof authenticated!=="undefined"?authenticated:undefined,"text" in locals_for_with?locals_for_with.text:typeof text!=="undefined"?text:undefined,"user" in locals_for_with?locals_for_with.user:typeof user!=="undefined"?user:undefined));;return pug_html;};
+function template(locals) {var pug_html = "", pug_mixins = {}, pug_interp;;var locals_for_with = (locals || {});(function (arrowclass, message, title) {pug_html = pug_html + "\u003Cdiv class=\"messagebubble\"\u003E\u003Cdiv" + (pug.attr("class", pug.classes([`${arrowclass}`], [true]), false, true)) + "\u003E\u003C\u002Fdiv\u003E\u003Cspan class=\"messagebubble__title\"\u003E" + (pug.escape(null == (pug_interp = title) ? "" : pug_interp)) + "\u003C\u002Fspan\u003E\u003Cbr\u003E\u003Cspan\u003E" + (pug.escape(null == (pug_interp = message) ? "" : pug_interp)) + "\u003C\u002Fspan\u003E\u003C\u002Fdiv\u003E";}.call(this,"arrowclass" in locals_for_with?locals_for_with.arrowclass:typeof arrowclass!=="undefined"?arrowclass:undefined,"message" in locals_for_with?locals_for_with.message:typeof message!=="undefined"?message:undefined,"title" in locals_for_with?locals_for_with.title:typeof title!=="undefined"?title:undefined));;return pug_html;};
 module.exports = template;
 
 /***/ }),
 /* 9 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var pug = __webpack_require__(0);
+
+function template(locals) {var pug_html = "", pug_mixins = {}, pug_interp;;var locals_for_with = (locals || {});(function (authenticated, text, user) {pug_html = pug_html + "\u003Cconst\u003Eauthenticated = localStorage.getItem('authenticated');\u003C\u002Fconst\u003E\u003Cconst\u003Euser = localStorage.getItem('user');\u003C\u002Fconst\u003E\u003C!--if text--\u003E\u003Cdiv" + (pug.attr("class", pug.classes(["chat","pure-u-1-2",!authenticated ? 'chat__chat-hide' : ''], [false,false,true]), false, true)) + "\u003E\u003Cspan class=\"chat__name\"\u003E" + (pug.escape(null == (pug_interp = `${user}:`) ? "" : pug_interp)) + "\u003C\u002Fspan\u003E\u003Cspan class=\"chat__message\"\u003E" + (pug.escape(null == (pug_interp = text) ? "" : pug_interp)) + "\u003C\u002Fspan\u003E\u003C\u002Fdiv\u003E";}.call(this,"authenticated" in locals_for_with?locals_for_with.authenticated:typeof authenticated!=="undefined"?authenticated:undefined,"text" in locals_for_with?locals_for_with.text:typeof text!=="undefined"?text:undefined,"user" in locals_for_with?locals_for_with.user:typeof user!=="undefined"?user:undefined));;return pug_html;};
+module.exports = template;
+
+/***/ }),
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var pug = __webpack_require__(0);
@@ -679,7 +700,7 @@ pug_html = pug_html + "\u003Cform" + (pug.attr("class", pug.classes(["message","
 module.exports = template;
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports) {
 
 /* (ignored) */
