@@ -28,6 +28,7 @@ export class Chat {
         let bubble = new MessageBubble(messageInfo);
         bubble.render();
         this.el.querySelector('.chat').appendChild(bubble.el);
+        bubble.el.scrollIntoView(true);
     }
 
 }

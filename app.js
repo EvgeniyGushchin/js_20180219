@@ -454,6 +454,7 @@ var Chat = exports.Chat = function () {
             var bubble = new _messagebubble.MessageBubble(messageInfo);
             bubble.render();
             this.el.querySelector('.chat').appendChild(bubble.el);
+            bubble.el.scrollIntoView(true);
         }
     }]);
 

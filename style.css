@@ -1,7 +1,10 @@
 .chat {
   width: 900px;
+  height: 400px;
   margin: auto;
+  overflow: auto;
   background-color: #ffffff;
+  border-radius: 5px;
   color: #fff;
   font-size: 16px; }
   .chat__message {
@@ -54,6 +57,7 @@
   border-radius: 5px;
   color: black;
   width: 350px;
+  min-height: 30px;
   text-align: center;
   padding: 5px;
   position: relative;
