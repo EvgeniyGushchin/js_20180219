@@ -25,7 +25,7 @@ export class MessageBubble {
 
     titleFromInfo(info) {
 
-        if (info.messageDate === undefined) {
+        if (!info.messageDate) {
             return info.userName;
         }
         

@@ -33,9 +33,6 @@
 /******/ 	// expose the module cache
 /******/ 	__webpack_require__.c = installedModules;
 /******/
-/******/ 	// identity function for calling harmony imports with the correct context
-/******/ 	__webpack_require__.i = function(value) { return value; };
-/******/
 /******/ 	// define getter function for harmony exports
 /******/ 	__webpack_require__.d = function(exports, name, getter) {
 /******/ 		if(!__webpack_require__.o(exports, name)) {
@@ -63,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 6);
+/******/ 	return __webpack_require__(__webpack_require__.s = 1);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -300,7 +297,7 @@ function pug_rethrow(err, filename, lineno, str){
     throw err;
   }
   try {
-    str = str || __webpack_require__(11).readFileSync(filename, 'utf8')
+    str = str || __webpack_require__(4).readFileSync(filename, 'utf8')
   } catch (ex) {
     pug_rethrow(err, null, lineno)
   }
@@ -333,6 +330,58 @@ function pug_rethrow(err, filename, lineno, str){
 "use strict";
 
 
+var _auth = __webpack_require__(2);
+
+var _chat = __webpack_require__(5);
+
+var _message = __webpack_require__(9);
+
+var _utils = __webpack_require__(11);
+
+__webpack_require__(12);
+
+window.addEventListener('DOMContentLoaded', function () {
+
+    var auth = new _auth.Auth(document.querySelector('.js-auth'), {});
+    var chat = new _chat.Chat(document.querySelector('.js-chat'), {});
+    var message = new _message.Message(document.querySelector('.js-message'), {});
+
+    window.chat = chat;
+    window.message = message;
+    window.auth = auth;
+
+    (0, _utils.request)('get', '/data/data.json').then(function (data) {
+        return Promise.all(getAllUsersFromList(data));
+    }, function (err) {
+        return console.log(err);
+    }).then(function (result) {
+        return result.map(function (user) {
+            return console.log(user);
+        });
+    });
+
+    function getAllUsersFromList(list) {
+        return list.map(function (user) {
+            return (0, _utils.request)('get', '/data/' + user.user + '.json');
+        });
+    }
+    // consooe.log(ilia, elina); // оба были выведены
+});
+
+//
+//       index
+//   /     \       \
+//  Auth    Chat   Message
+//           \
+//           Message
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
@@ -340,7 +389,7 @@ exports.defaultLogin = exports.Auth = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _auth = __webpack_require__(7);
+var _auth = __webpack_require__(3);
 
 var _auth2 = _interopRequireDefault(_auth);
 
@@ -399,7 +448,23 @@ var Auth = exports.Auth = function () {
 var defaultLogin = exports.defaultLogin = 'user';
 
 /***/ }),
-/* 2 */
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var pug = __webpack_require__(0);
+
+function template(locals) {var pug_html = "", pug_mixins = {}, pug_interp;;var locals_for_with = (locals || {});(function (localStorage) {const authenticated = localStorage.getItem('authenticated');
+pug_html = pug_html + "\u003Cform" + (pug.attr("class", pug.classes(["auth","pure-form",authenticated ? 'auth__auth-hide' : ''], [false,false,true]), false, true)) + "\u003E\u003Cinput class=\"auth__name\" type=\"text\" placeholder=\"Login\"\u003E\u003Cinput class=\"auth__password\" type=\"password\" placeholder=\"Password\"\u003E\u003Cbutton class=\"auth__submit pure-button pure-button-primary\" type=\"submit\"\u003ESign in\u003C\u002Fbutton\u003E\u003C\u002Fform\u003E";}.call(this,"localStorage" in locals_for_with?locals_for_with.localStorage:typeof localStorage!=="undefined"?localStorage:undefined));;return pug_html;};
+module.exports = template;
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports) {
+
+/* (ignored) */
+
+/***/ }),
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -412,9 +477,9 @@ exports.Chat = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _messagebubble = __webpack_require__(5);
+var _messagebubble = __webpack_require__(6);
 
-var _chat = __webpack_require__(9);
+var _chat = __webpack_require__(8);
 
 var _chat2 = _interopRequireDefault(_chat);
 
@@ -462,7 +527,93 @@ var Chat = exports.Chat = function () {
 }();
 
 /***/ }),
-/* 3 */
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.MessageBubble = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _messagebubble = __webpack_require__(7);
+
+var _messagebubble2 = _interopRequireDefault(_messagebubble);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var MessageBubble = exports.MessageBubble = function () {
+    function MessageBubble(messageInfo) {
+        _classCallCheck(this, MessageBubble);
+
+        this.el = document.createElement('div');
+
+        this.message = messageInfo.message;
+        this.isOwner = messageInfo.isOwner;
+        this.title = this.titleFromInfo(messageInfo);
+
+        this.render();
+    }
+
+    _createClass(MessageBubble, [{
+        key: 'render',
+        value: function render() {
+            var arrowClass = this.isOwner ? "messagebubble__arrow--left" : "messagebubble__arrow--right";
+
+            this.el.innerHTML = (0, _messagebubble2.default)({
+                arrowclass: arrowClass,
+                title: this.title,
+                message: this.message
+            });
+        }
+    }, {
+        key: 'titleFromInfo',
+        value: function titleFromInfo(info) {
+
+            if (!info.messageDate) {
+                return info.userName;
+            }
+
+            var options = {
+                hour: '2-digit',
+                minute: '2-digit'
+            };
+
+            var time = new Date(info.messageDate).toLocaleString('ru-ru', options);
+
+            return info.userName + ' at ' + time;
+        }
+    }]);
+
+    return MessageBubble;
+}();
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var pug = __webpack_require__(0);
+
+function template(locals) {var pug_html = "", pug_mixins = {}, pug_interp;;var locals_for_with = (locals || {});(function (arrowclass, message, title) {pug_html = pug_html + "\u003Cdiv class=\"messagebubble\"\u003E\u003Cdiv" + (pug.attr("class", pug.classes([`${arrowclass}`], [true]), false, true)) + "\u003E\u003C\u002Fdiv\u003E\u003Cspan class=\"messagebubble__title\"\u003E" + (pug.escape(null == (pug_interp = title) ? "" : pug_interp)) + "\u003C\u002Fspan\u003E\u003Cbr\u003E\u003Cspan\u003E" + (pug.escape(null == (pug_interp = message) ? "" : pug_interp)) + "\u003C\u002Fspan\u003E\u003C\u002Fdiv\u003E";}.call(this,"arrowclass" in locals_for_with?locals_for_with.arrowclass:typeof arrowclass!=="undefined"?arrowclass:undefined,"message" in locals_for_with?locals_for_with.message:typeof message!=="undefined"?message:undefined,"title" in locals_for_with?locals_for_with.title:typeof title!=="undefined"?title:undefined));;return pug_html;};
+module.exports = template;
+
+/***/ }),
+/* 8 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var pug = __webpack_require__(0);
+
+function template(locals) {var pug_html = "", pug_mixins = {}, pug_interp;;var locals_for_with = (locals || {});(function (authenticated, text, user) {pug_html = pug_html + "\u003Cconst\u003Eauthenticated = localStorage.getItem('authenticated');\u003C\u002Fconst\u003E\u003Cconst\u003Euser = localStorage.getItem('user');\u003C\u002Fconst\u003E\u003C!--if text--\u003E\u003Cdiv" + (pug.attr("class", pug.classes(["chat","pure-u-1-2",!authenticated ? 'chat__chat-hide' : ''], [false,false,true]), false, true)) + "\u003E\u003Cspan class=\"chat__name\"\u003E" + (pug.escape(null == (pug_interp = `${user}:`) ? "" : pug_interp)) + "\u003C\u002Fspan\u003E\u003Cspan class=\"chat__message\"\u003E" + (pug.escape(null == (pug_interp = text) ? "" : pug_interp)) + "\u003C\u002Fspan\u003E\u003C\u002Fdiv\u003E";}.call(this,"authenticated" in locals_for_with?locals_for_with.authenticated:typeof authenticated!=="undefined"?authenticated:undefined,"text" in locals_for_with?locals_for_with.text:typeof text!=="undefined"?text:undefined,"user" in locals_for_with?locals_for_with.user:typeof user!=="undefined"?user:undefined));;return pug_html;};
+module.exports = template;
+
+/***/ }),
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -530,7 +681,17 @@ var Message = exports.Message = function () {
 }();
 
 /***/ }),
-/* 4 */
+/* 10 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var pug = __webpack_require__(0);
+
+function template(locals) {var pug_html = "", pug_mixins = {}, pug_interp;;var locals_for_with = (locals || {});(function (localStorage) {const authenticated = localStorage.getItem('authenticated');
+pug_html = pug_html + "\u003Cform" + (pug.attr("class", pug.classes(["message","pure-form",!authenticated ? 'message__message-hide' : ''], [false,false,true]), false, true)) + "\u003E\u003Ctextarea class=\"message__input pure-input-1-2\" placeholder=\"Add your message here...\"\u003E\u003C\u002Ftextarea\u003E\u003Cbutton class=\"message__button button-success pure-button\"\u003ESend\u003C\u002Fbutton\u003E\u003C\u002Fform\u003E";}.call(this,"localStorage" in locals_for_with?locals_for_with.localStorage:typeof localStorage!=="undefined"?localStorage:undefined));;return pug_html;};
+module.exports = template;
+
+/***/ }),
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -566,166 +727,10 @@ function request(method, path, done) {
 // request('GET', '/data.json', (data) => { console.log(data) })
 
 /***/ }),
-/* 5 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.MessageBubble = undefined;
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _messagebubble = __webpack_require__(8);
-
-var _messagebubble2 = _interopRequireDefault(_messagebubble);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var MessageBubble = exports.MessageBubble = function () {
-    function MessageBubble(messageInfo) {
-        _classCallCheck(this, MessageBubble);
-
-        this.el = document.createElement('div');
-
-        this.message = messageInfo.message;
-        this.isOwner = messageInfo.isOwner;
-        this.title = this.titleFromInfo(messageInfo);
-
-        this.render();
-    }
-
-    _createClass(MessageBubble, [{
-        key: 'render',
-        value: function render() {
-            var arrowClass = this.isOwner ? "messagebubble__arrow--left" : "messagebubble__arrow--right";
-
-            this.el.innerHTML = (0, _messagebubble2.default)({
-                arrowclass: arrowClass,
-                title: this.title,
-                message: this.message
-            });
-        }
-    }, {
-        key: 'titleFromInfo',
-        value: function titleFromInfo(info) {
-
-            if (info.messageDate === undefined) {
-                return info.userName;
-            }
-
-            var options = {
-                hour: '2-digit',
-                minute: '2-digit'
-            };
-
-            var time = new Date(info.messageDate).toLocaleString('ru-ru', options);
-
-            return info.userName + ' at ' + time;
-        }
-    }]);
-
-    return MessageBubble;
-}();
-
-/***/ }),
-/* 6 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _auth = __webpack_require__(1);
-
-var _chat = __webpack_require__(2);
-
-var _message = __webpack_require__(3);
-
-var _utils = __webpack_require__(4);
-
-window.addEventListener('DOMContentLoaded', function () {
-
-    var auth = new _auth.Auth(document.querySelector('.js-auth'), {});
-    var chat = new _chat.Chat(document.querySelector('.js-chat'), {});
-    var message = new _message.Message(document.querySelector('.js-message'), {});
-
-    window.chat = chat;
-    window.message = message;
-    window.auth = auth;
-
-    (0, _utils.request)('get', '/data/data.json').then(function (data) {
-        return Promise.all(getAllUsersFromList(data));
-    }, function (err) {
-        return console.log(err);
-    }).then(function (result) {
-        return result.map(function (user) {
-            return console.log(user);
-        });
-    });
-
-    function getAllUsersFromList(list) {
-        return list.map(function (user) {
-            return (0, _utils.request)('get', '/data/' + user.user + '.json');
-        });
-    }
-    // consooe.log(ilia, elina); // оба были выведены
-});
-
-//
-//       index
-//   /     \       \
-//  Auth    Chat   Message
-//           \
-//           Message
-
-/***/ }),
-/* 7 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var pug = __webpack_require__(0);
-
-function template(locals) {var pug_html = "", pug_mixins = {}, pug_interp;;var locals_for_with = (locals || {});(function (localStorage) {const authenticated = localStorage.getItem('authenticated');
-pug_html = pug_html + "\u003Cform" + (pug.attr("class", pug.classes(["auth","pure-form",authenticated ? 'auth__auth-hide' : ''], [false,false,true]), false, true)) + "\u003E\u003Cinput class=\"auth__name\" type=\"text\" placeholder=\"Login\"\u003E\u003Cinput class=\"auth__password\" type=\"password\" placeholder=\"Password\"\u003E\u003Cbutton class=\"auth__submit pure-button pure-button-primary\" type=\"submit\"\u003ESign in\u003C\u002Fbutton\u003E\u003C\u002Fform\u003E";}.call(this,"localStorage" in locals_for_with?locals_for_with.localStorage:typeof localStorage!=="undefined"?localStorage:undefined));;return pug_html;};
-module.exports = template;
-
-/***/ }),
-/* 8 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var pug = __webpack_require__(0);
-
-function template(locals) {var pug_html = "", pug_mixins = {}, pug_interp;;var locals_for_with = (locals || {});(function (arrowclass, message, title) {pug_html = pug_html + "\u003Cdiv class=\"messagebubble\"\u003E\u003Cdiv" + (pug.attr("class", pug.classes([`${arrowclass}`], [true]), false, true)) + "\u003E\u003C\u002Fdiv\u003E\u003Cspan class=\"messagebubble__title\"\u003E" + (pug.escape(null == (pug_interp = title) ? "" : pug_interp)) + "\u003C\u002Fspan\u003E\u003Cbr\u003E\u003Cspan\u003E" + (pug.escape(null == (pug_interp = message) ? "" : pug_interp)) + "\u003C\u002Fspan\u003E\u003C\u002Fdiv\u003E";}.call(this,"arrowclass" in locals_for_with?locals_for_with.arrowclass:typeof arrowclass!=="undefined"?arrowclass:undefined,"message" in locals_for_with?locals_for_with.message:typeof message!=="undefined"?message:undefined,"title" in locals_for_with?locals_for_with.title:typeof title!=="undefined"?title:undefined));;return pug_html;};
-module.exports = template;
-
-/***/ }),
-/* 9 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var pug = __webpack_require__(0);
-
-function template(locals) {var pug_html = "", pug_mixins = {}, pug_interp;;var locals_for_with = (locals || {});(function (authenticated, text, user) {pug_html = pug_html + "\u003Cconst\u003Eauthenticated = localStorage.getItem('authenticated');\u003C\u002Fconst\u003E\u003Cconst\u003Euser = localStorage.getItem('user');\u003C\u002Fconst\u003E\u003C!--if text--\u003E\u003Cdiv" + (pug.attr("class", pug.classes(["chat","pure-u-1-2",!authenticated ? 'chat__chat-hide' : ''], [false,false,true]), false, true)) + "\u003E\u003Cspan class=\"chat__name\"\u003E" + (pug.escape(null == (pug_interp = `${user}:`) ? "" : pug_interp)) + "\u003C\u002Fspan\u003E\u003Cspan class=\"chat__message\"\u003E" + (pug.escape(null == (pug_interp = text) ? "" : pug_interp)) + "\u003C\u002Fspan\u003E\u003C\u002Fdiv\u003E";}.call(this,"authenticated" in locals_for_with?locals_for_with.authenticated:typeof authenticated!=="undefined"?authenticated:undefined,"text" in locals_for_with?locals_for_with.text:typeof text!=="undefined"?text:undefined,"user" in locals_for_with?locals_for_with.user:typeof user!=="undefined"?user:undefined));;return pug_html;};
-module.exports = template;
-
-/***/ }),
-/* 10 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var pug = __webpack_require__(0);
-
-function template(locals) {var pug_html = "", pug_mixins = {}, pug_interp;;var locals_for_with = (locals || {});(function (localStorage) {const authenticated = localStorage.getItem('authenticated');
-pug_html = pug_html + "\u003Cform" + (pug.attr("class", pug.classes(["message","pure-form",!authenticated ? 'message__message-hide' : ''], [false,false,true]), false, true)) + "\u003E\u003Ctextarea class=\"message__input pure-input-1-2\" placeholder=\"Add your message here...\"\u003E\u003C\u002Ftextarea\u003E\u003Cbutton class=\"message__button button-success pure-button\"\u003ESend\u003C\u002Fbutton\u003E\u003C\u002Fform\u003E";}.call(this,"localStorage" in locals_for_with?locals_for_with.localStorage:typeof localStorage!=="undefined"?localStorage:undefined));;return pug_html;};
-module.exports = template;
-
-/***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports) {
 
-/* (ignored) */
+// removed by extract-text-webpack-plugin
 
 /***/ })
 /******/ ]);

@@ -2,6 +2,7 @@ import {Auth, defaultLogin} from './auth/auth';
 import {Chat} from './chat/chat';
 import {Message} from './message/message';
 import {request} from '../modules/utils';
+import '../style.scss'
 
 window.addEventListener('DOMContentLoaded', () => {
 
