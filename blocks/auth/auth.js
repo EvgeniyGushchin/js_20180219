@@ -20,15 +20,16 @@ export class Auth {
 
             if (authenticated) {
                 console.log(`Hi, ${name}`);
-                localStorage.setItem('authenticated', true);
-
-                // тапорненько перерисовываем.
-                window.chat.render();
-                window.message.render();
-                this.render();
-
-                // запишем в виндоу юзера тоже думаю временно
-                localStorage.setItem('user', name);
+                this.didLogin();
+                // localStorage.setItem('authenticated', true);
+                //
+                // // тапорненько перерисовываем.
+                // window.chat.render();
+                // window.message.render();
+                // this.render();
+                //
+                // // запишем в виндоу юзера тоже думаю временно
+                // localStorage.setItem('user', name);
             }
             else {
                 console.log('Authorization failed');
@@ -40,6 +41,8 @@ export class Auth {
     render() {
         this.el.innerHTML = template();
     }
+
+    didLogin() {}
 
 }
 

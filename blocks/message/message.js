@@ -34,9 +34,16 @@ export class Message {
 
     sendMessage() {
         const input = this.el.querySelector('.message__input');
-        window.chat.addMessage(input.value, true);
+        this.insertMessage(input.value);
         input.value = '';
     }
+
+    /**
+     * Добавляение сообщения
+     * @override
+     * @param text
+     */
+    insertMessage(text) {}
 
 }
 
