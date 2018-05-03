@@ -9,8 +9,7 @@ export class Chat {
     }
 
     render() {
-        this.el.innerHTML = `
-            <div class="chat"></div>`;
+        this.el.innerHTML = template();
     }
 
     /**
