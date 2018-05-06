@@ -1,5 +1,6 @@
 import  {View} from '../view'
 import {Auth} from '../../blocks/auth/auth'
+import {User} from "../../models/User";
 
 export class AuthView extends View {
 
@@ -8,7 +9,23 @@ export class AuthView extends View {
 
         this.auth = new Auth(this.el, {});
 
-        this.auth.didLogin = () => {
+        this.auth.onLogin = (email, pwd) => {
+
+            if (email && pwd) {
+                let model = new User(email, pwd);
+                model.signIn().then(user => {
+                    console.log(user);
+                    location.hash = '#chat';
+                }, error => {
+                    let errorCode = error.code;
+                    let errorMessage = error.message;
+                    console.log(`Error ${errorCode}: ${errorMessage}`);
+                    alert(`Error ${errorCode}: ${errorMessage}`);
+                });
+
+            } else {
+                console.log('Authorization failed');
+            }
 
         }
     }
