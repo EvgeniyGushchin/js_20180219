@@ -1,4 +1,4 @@
-import {signin} from '../modules/authService'
+import {signIn} from '../modules/authService'
 
 export class User {
     constructor(email, password) {
@@ -10,7 +10,7 @@ export class User {
     }
 
     signIn() {
-        return signin(this.email, this.password);
+        return signIn(this.email, this.password);
     }
 
     signUp() {

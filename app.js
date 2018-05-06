@@ -593,7 +593,7 @@ var User = exports.User = function () {
     _createClass(User, [{
         key: 'signIn',
         value: function signIn() {
-            return (0, _authService.signin)(this.email, this.password);
+            return (0, _authService.signIn)(this.email, this.password);
         }
     }, {
         key: 'signUp',
@@ -5021,7 +5021,7 @@ function __importDefault(mod) {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.signin = signin;
+exports.signIn = signIn;
 
 var _app = __webpack_require__(18);
 
@@ -5031,7 +5031,7 @@ __webpack_require__(32);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
-function signin(email, password) {
+function signIn(email, password) {
 
     return firebase.auth().signInAndRetrieveDataWithEmailAndPassword(email, password);
 }
