@@ -4,3 +4,7 @@
 
 # Сборка
 `npm run build`
+
+# Test user
+`test@test.com
+ 123456`
